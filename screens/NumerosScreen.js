@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import Botones from "../components/Botones";
 
 export default function NumerosScreen({ navigation }) {
-  mygetButtons = () => {
+  botones = () => {
     const buttons = [];
     for (let i = 1; i < 11; i++) {
       buttons.push(<Botones key={i} tipo="numero" numero={i} />);
@@ -14,7 +14,7 @@ export default function NumerosScreen({ navigation }) {
     <View style={styles.container}>
       <Text>Números!</Text>
 			<View style={styles.frameContainer}>
-      	<View style={styles.frame}>{this.mygetButtons()}</View>
+      	<View style={styles.frame}>{this.botones()}</View>
 			</View>
     </View>
   );
