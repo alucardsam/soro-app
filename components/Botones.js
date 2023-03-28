@@ -1,17 +1,45 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, ToastAndroid, TouchableOpacity, Text } from "react-native";
+/* import Sound from "react-native-sound";
+import dings from './src/assets/ding.mp3';
+
+Sound.setCategory("Playback");
+
+var ding = new Sound("1.mp3", Sound.MAIN_BUNDLE, (error) => {
+  if (error) {
+    console.log("failed to load the sound", error);
+    return;
+  }
+  // when loaded successfully
+  console.log(
+    "duration in seconds: " +
+      whoosh.getDuration() +
+      "number of channels: " +
+      whoosh.getNumberOfChannels()
+  );
+}); */
 
 export default Botones = (props) => {
+  /* useEffect(() => {
+    ding.setVolume(1);
+    return () => {
+      ding.release();
+    };
+  }, []); */
   const showToast = () => {
-    ToastAndroid.show(
-      "Presionaste el " + props.tipo + " " + props.numero,
-      ToastAndroid.SHORT
-    );
+    ToastAndroid.show("Presionaste " + props.tipo + " " + props.titulo, 500);
+    /* ding.play((success) => {
+      if (success) {
+        console.log("successfully finished playing");
+      } else {
+        console.log("playback failed due to audio decoding errors");
+      }
+    }); */
   };
 
   return (
     <TouchableOpacity style={styles.button} onPress={() => showToast()}>
-      <Text style={styles.text}>{props.numero}</Text>
+      <Text style={styles.text}>{props.titulo}</Text>
     </TouchableOpacity>
   );
 };
@@ -19,12 +47,14 @@ export default Botones = (props) => {
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 5,
-		margin: 5,
+    backgroundColor: "#1fbede",
+    borderRadius: 5,
+    padding: 30,
+    margin: 10,
   },
   text: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    color: "#fff",
   },
 });
