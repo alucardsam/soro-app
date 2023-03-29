@@ -1,44 +1,34 @@
-import React, { useEffect } from "react";
+import * as React from "react";
 import { StyleSheet, ToastAndroid, TouchableOpacity, Text } from "react-native";
-/* import Sound from "react-native-sound";
-import dings from './src/assets/ding.mp3';
-
-Sound.setCategory("Playback");
-
-var ding = new Sound("1.mp3", Sound.MAIN_BUNDLE, (error) => {
-  if (error) {
-    console.log("failed to load the sound", error);
-    return;
-  }
-  // when loaded successfully
-  console.log(
-    "duration in seconds: " +
-      whoosh.getDuration() +
-      "number of channels: " +
-      whoosh.getNumberOfChannels()
-  );
-}); */
+import { Audio } from "expo-av";
 
 export default Botones = (props) => {
-  /* useEffect(() => {
-    ding.setVolume(1);
-    return () => {
-      ding.release();
-    };
-  }, []); */
-  const showToast = () => {
-    ToastAndroid.show("Presionaste " + props.tipo + " " + props.titulo, 500);
-    /* ding.play((success) => {
-      if (success) {
-        console.log("successfully finished playing");
-      } else {
-        console.log("playback failed due to audio decoding errors");
-      }
-    }); */
+  const [sound, setSound] = React.useState();
+
+  const playSound = async () => {
+    ToastAndroid.show("Presionaste " + props.tipo.substring(0, props.tipo.length - 1) + " " + props.titulo, 500);
+    let filePath = "../assets/audios/default.mp3";
+    let uriPath = `https://creacionessoro.com.mx/audios/${props.tipo}/${props.titulo}.mp3`;
+    const { sound } = await Audio.Sound.createAsync(
+      props.tipo === "letras" ? require(filePath) : { uri: uriPath }
+    );
+    console.log("Loading Sound", props.tipo === "letras" ? filePath : uriPath);
+    setSound(sound);
+    console.log("Playing Sound", props.tipo === "letras" ? filePath : uriPath);
+    await sound.playAsync();
   };
 
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
   return (
-    <TouchableOpacity style={styles.button} onPress={() => showToast()}>
+    <TouchableOpacity style={styles.button} onPress={() => playSound()}>
       <Text style={styles.text}>{props.titulo}</Text>
     </TouchableOpacity>
   );

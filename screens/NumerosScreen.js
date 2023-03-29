@@ -21,7 +21,7 @@ const DATA = [
   },
   {
     id: "5",
-    title: "4",
+    title: "5",
   },
   {
     id: "6",
@@ -50,7 +50,7 @@ export default function NumerosScreen({ navigation }) {
     const buttons = [];
     DATA.forEach((element) => {
       buttons.push(
-        <Botones key={element.id} tipo="numero" titulo={element.title} />
+        <Botones key={element.id} tipo="numeros" id={element.id} titulo={element.title} />
       );
     });
     return buttons;

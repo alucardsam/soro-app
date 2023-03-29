@@ -58,7 +58,7 @@ export default function LetrasScreen({ navigation }) {
     const buttons = [];
     DATA.forEach((element) => {
       buttons.push(
-        <Botones key={element.id} tipo="letra" titulo={element.title} />
+        <Botones key={element.id} tipo="letras" id={element.id} titulo={element.title} />
       );
     });
     return buttons;
